@@ -1,6 +1,23 @@
 @import "tailwindcss";
-@config "../tailwind.config.js";
-/*@import url("https://fonts.cdnfonts.com/css/general-sans");*/
+
+@theme {
+  --font-zentry: zentry, sans-serif;
+  --font-general: general, sans-serif;
+  --font-circular-web: circular-web, sans-serif;
+  --font-robert-medium: robert-medium, sans-serif;
+  --font-robert-regular: robert-regular, sans-serif;
+
+  --color-blue-50: #DFDFF0;
+  --color-blue-75: #DFDFF2;
+  --color-blue-100: #F0F2FA;
+  --color-blue-200: #010101;
+  --color-blue-300: #4FB7DD;
+
+  --color-violet-300: #5724FF;
+
+  --color-yellow-100: #8E983F;
+  --color-yellow-300: #EDFF66;
+}
 
 
 body {
@@ -88,7 +105,7 @@ body {
     }
 
     .about-subtext {
-        @apply absolute bottom-[-80dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-circular-web text-lg md:max-w-[34rem];
+        @apply absolute bottom-[-80dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-circular-web text-lg md:max-w-136;
     }
 
     .about-image {
@@ -142,7 +159,7 @@ body {
     }
 
     .gallery-img-4 {
-        @apply sm:size-80 md:h-96 md:w-[25rem] rounded-lg;
+        @apply sm:size-80 md:h-96 md:w-100 rounded-lg;
     }
 
     .sword-man-clip-path {
