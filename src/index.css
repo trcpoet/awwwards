@@ -26,7 +26,29 @@ body {
     background-color: #dfdff0;
     font-family: "general", sans-serif;
     --animation-order: 0;
+}
 
+::selection {
+    background-color: #EDFF66; /* yellow-300 */
+    color: #010101; /* blue-200 */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #DFDFF0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #5724FF;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #4FB7DD;
 }
 
 @layer base {
@@ -40,28 +62,24 @@ body {
         font-family: "general";
         src: url("/fonts/general.woff2") format("woff2");
         font-display: swap;
-
     }
 
     @font-face {
         font-family: "robert-medium";
         src: url("/fonts/robert-medium.woff2") format("woff2");
         font-display: swap;
-
     }
 
     @font-face {
         font-family: "robert-regular";
         src: url("/fonts/robert-regular.woff2") format("woff2");
         font-display: swap;
-
     }
 
     @font-face {
         font-family: "zentry";
         src: url("/fonts/zentry-regular.woff2") format("woff2");
         font-display: swap;
-
     }
 }
 
@@ -80,7 +98,7 @@ body {
     }
 
     .floating-nav {
-        @apply bg-black rounded-lg border;
+        @apply bg-black/90 rounded-lg border border-white/10 backdrop-blur-md shadow-lg shadow-black/20;
     }
 
     .absolute-center {
@@ -204,7 +222,7 @@ body {
 .three-body {
     --uib-size: 35px;
     --uib-speed: 0.8s;
-    --uib-color: #5d3fd3;
+    --uib-color: #5D2BFF;
     position: relative;
     display: inline-block;
     height: var(--uib-size);
@@ -302,4 +320,51 @@ body {
         transform: translateY(66%) scale(0.65);
         opacity: 0.8;
     }
+}
+
+/* Glitch Effect */
+.glitch {
+    position: relative;
+    color: white;
+    mix-blend-mode: lighten;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: black;
+    clip: rect(0, 0, 0, 0);
+}
+
+.glitch::before {
+    left: -2px;
+    text-shadow: 1px 0 #ff00c1;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: 2px;
+    text-shadow: -1px 0 #00fff9;
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip: rect(20px, 9999px, 15px, 0); }
+    20% { clip: rect(60px, 9999px, 70px, 0); }
+    40% { clip: rect(20px, 9999px, 15px, 0); }
+    60% { clip: rect(80px, 9999px, 90px, 0); }
+    80% { clip: rect(10px, 9999px, 40px, 0); }
+    100% { clip: rect(50px, 9999px, 60px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip: rect(10px, 9999px, 20px, 0); }
+    20% { clip: rect(50px, 9999px, 40px, 0); }
+    40% { clip: rect(70px, 9999px, 100px, 0); }
+    60% { clip: rect(30px, 9999px, 15px, 0); }
+    80% { clip: rect(90px, 9999px, 60px, 0); }
+    100% { clip: rect(20px, 9999px, 30px, 0); }
 }

@@ -24,6 +24,15 @@ const About = () => {
       height: "100vh",
       borderRadius: 0,
     });
+
+    // Liquid effect
+    gsap.to(".mask-clip-path", {
+      borderRadius: "20% 50% 30% 70% / 60% 30% 70% 40%",
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
   });
 
   return (

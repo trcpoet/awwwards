@@ -16,24 +16,30 @@ const Hero = () => {
   const [loadedVideos, setLoadedVideos] = useState(0);
 
   const totalVideos = 4;
-  const nextVdRef = useRef(null);
+  const nextVideoRef = useRef(null);
+  const inputVideoRef = useRef(null);
 
   const handleVideoLoad = () => {
     setLoadedVideos((prev) => prev + 1);
   };
 
+  const upcomingVideoIndex = (currentIndex % totalVideos) + 1;
   const loading = loadedVideos < totalVideos - 1;
 
   const handleMiniVdClick = () => {
     setHasClicked(true);
-
-    setCurrentIndex((prevIndex) => (prevIndex % totalVideos) + 1);
   };
 
   useGSAP(
     () => {
       if (hasClicked) {
-        gsap.set("#next-video", { visibility: "visible" });
+        gsap.set("#next-video", { visibility: "visible", zIndex: 50 });
+
+        if (nextVideoRef.current && inputVideoRef.current) {
+          nextVideoRef.current.currentTime = inputVideoRef.current.currentTime;
+          nextVideoRef.current.play();
+        }
+
         gsap.to("#next-video", {
           transformOrigin: "center center",
           scale: 1,
@@ -41,8 +47,14 @@ const Hero = () => {
           height: "100%",
           duration: 1,
           ease: "power1.inOut",
-          onStart: () => nextVdRef.current.play(),
+          onStart: () => nextVideoRef.current.play(),
+          onComplete: () => {
+            setHasClicked(false);
+            gsap.set("#next-video", { visibility: "invisible" });
+            setCurrentIndex(upcomingVideoIndex);
+          },
         });
+
         gsap.from("#current-video", {
           transformOrigin: "center center",
           scale: 0,
@@ -52,7 +64,7 @@ const Hero = () => {
       }
     },
     {
-      dependencies: [currentIndex],
+      dependencies: [currentIndex, hasClicked],
       revertOnUpdate: true,
     },
   );
@@ -73,15 +85,33 @@ const Hero = () => {
         scrub: true,
       },
     });
+
+    // Kinetic typography effect
+    gsap.set(".hero-heading", {
+      transformOrigin: "center center",
+      scale: 1,
+      skewX: 0,
+    });
+    gsap.to(".hero-heading", {
+      transformOrigin: "center center",
+      scale: 1.1,
+      skewX: 2,
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: "#video-frame",
+        start: "center center",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
   });
 
-  const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
+  const getVideoSrc = (index) => `videos/hero-${index}.mp4`; //Giving us the path of each specific video source
 
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
       {loading && (
-        <div className="flex-center absolute z-100 h-dvh w-screen overflow-hidden bg-violet-50">
-          {/* https://uiverse.io/G4b413l/tidy-walrus-92 */}
+        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
           <div className="three-body">
             <div className="three-body__dot"></div>
             <div className="three-body__dot"></div>
@@ -102,10 +132,11 @@ const Hero = () => {
                 className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
               >
                 <video
-                  ref={nextVdRef}
+                  ref={inputVideoRef}
                   src={getVideoSrc((currentIndex % totalVideos) + 1)}
                   loop
                   muted
+                  autoPlay
                   id="current-video"
                   className="size-64 origin-center scale-150 object-cover object-center"
                   onLoadedData={handleVideoLoad}
@@ -115,8 +146,8 @@ const Hero = () => {
           </div>
 
           <video
-            ref={nextVdRef}
-            src={getVideoSrc(currentIndex)}
+            ref={nextVideoRef}
+            src={getVideoSrc(upcomingVideoIndex)}
             loop
             muted
             id="next-video"
@@ -124,9 +155,7 @@ const Hero = () => {
             onLoadedData={handleVideoLoad}
           />
           <video
-            src={getVideoSrc(
-              currentIndex === totalVideos - 1 ? 1 : currentIndex,
-            )}
+            src={getVideoSrc(currentIndex)}
             autoPlay
             loop
             muted
@@ -135,13 +164,13 @@ const Hero = () => {
           />
         </div>
 
-        <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
+        <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75 drop-shadow-xl">
           G<b>A</b>MING
         </h1>
 
         <div className="absolute left-0 top-0 z-40 size-full">
           <div className="mt-24 px-5 sm:px-10">
-            <h1 className="special-font hero-heading text-blue-100">
+            <h1 className="special-font hero-heading text-blue-100 drop-shadow-2xl">
               redefi<b>n</b>e
             </h1>
 

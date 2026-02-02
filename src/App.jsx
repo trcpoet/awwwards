@@ -5,6 +5,7 @@ import Features from "./components/Features";
 import Story from "./components/Story";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import Links from "./components/Links";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -29,10 +30,12 @@ function App() {
     <main className="relative min-h-screen w-screen overflow-x-hidden">
       <NavBar />
       <Hero />
+
       <About />
       <Features />
       <Story />
       <Contact />
+      <Links />
       <Footer />
     </main>
   );
