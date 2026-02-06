@@ -2,7 +2,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
 import { TiLocationArrow } from "react-icons/ti";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import Button from "./Button";
 import VideoPreview from "./VideoPreview";
@@ -12,21 +12,26 @@ gsap.registerPlugin(ScrollTrigger);
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [hasClicked, setHasClicked] = useState(false);
+  const [nextVdIndex, setNextVdIndex] = useState(1);
 
   const [loadedVideos, setLoadedVideos] = useState(0);
 
   const totalVideos = 4;
-  const nextVideoRef = useRef(null);
-  const inputVideoRef = useRef(null);
 
   const handleVideoLoad = () => {
     setLoadedVideos((prev) => prev + 1);
+  };
+
+  const handleMainVideoLoad = () => {
+    setLoadedVideos((prev) => prev + 1);
+    gsap.set("#next-video", { visibility: "invisible" }); // Mask the overlay
   };
 
   const upcomingVideoIndex = (currentIndex % totalVideos) + 1;
   const loading = loadedVideos < totalVideos - 1;
 
   const handleMiniVdClick = () => {
+    setNextVdIndex(upcomingVideoIndex);
     setHasClicked(true);
   };
 
@@ -35,11 +40,6 @@ const Hero = () => {
       if (hasClicked) {
         gsap.set("#next-video", { visibility: "visible", zIndex: 50 });
 
-        if (nextVideoRef.current && inputVideoRef.current) {
-          nextVideoRef.current.currentTime = inputVideoRef.current.currentTime;
-          nextVideoRef.current.play();
-        }
-
         gsap.to("#next-video", {
           transformOrigin: "center center",
           scale: 1,
@@ -47,10 +47,8 @@ const Hero = () => {
           height: "100%",
           duration: 1,
           ease: "power1.inOut",
-          onStart: () => nextVideoRef.current.play(),
           onComplete: () => {
             setHasClicked(false);
-            gsap.set("#next-video", { visibility: "invisible" });
             setCurrentIndex(upcomingVideoIndex);
           },
         });
@@ -132,11 +130,9 @@ const Hero = () => {
                 className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
               >
                 <video
-                  ref={inputVideoRef}
                   src={getVideoSrc((currentIndex % totalVideos) + 1)}
                   loop
                   muted
-                  autoPlay
                   id="current-video"
                   className="size-64 origin-center scale-150 object-cover object-center"
                   onLoadedData={handleVideoLoad}
@@ -146,8 +142,7 @@ const Hero = () => {
           </div>
 
           <video
-            ref={nextVideoRef}
-            src={getVideoSrc(upcomingVideoIndex)}
+            src={getVideoSrc(nextVdIndex)}
             loop
             muted
             id="next-video"
@@ -160,7 +155,7 @@ const Hero = () => {
             loop
             muted
             className="absolute left-0 top-0 size-full object-cover object-center"
-            onLoadedData={handleVideoLoad}
+            onLoadedData={handleMainVideoLoad}
           />
         </div>
 

@@ -16,7 +16,7 @@ const AnimatedTitle = ({ title, containerClass }) => {
           start: "100 bottom",
           end: "center bottom",
           toggleActions: "play none none reverse",
-        },
+        }, 
       });
 
       titleAnimation.to(
@@ -27,7 +27,7 @@ const AnimatedTitle = ({ title, containerClass }) => {
           ease: "power2.inOut",
           stagger: 0.02,
         },
-        0
+        0,
       );
     }, containerRef);
 
@@ -35,7 +35,9 @@ const AnimatedTitle = ({ title, containerClass }) => {
   }, []);
 
   return (
-    <div ref={containerRef} className={clsx("animated-title", containerClass)}>
+    <div 
+    ref={containerRef} 
+    className={clsx("animated-title", containerClass)}>
       {title.split("<br />").map((line, index) => (
         <div
           key={index}
