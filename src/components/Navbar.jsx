@@ -3,6 +3,7 @@ import gsap from "gsap";
 
 import { useEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
+import { useWindowScroll } from "react-use";
 
 import Button from "./Button";
 
@@ -12,17 +13,21 @@ const NavBar = () => {
   // State for toggling audio and visual indicator
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isNavVisible, setIsNavVisible] = useState(true);
 
   // Refs for audio and navigation container
   const audioElementRef = useRef(null);
   const navContainerRef = useRef(null);
 
-  const [isNavVisible, setIsNavVisible] = useState(true);
-  const lastScrollY = useRef(0);
+  const { y: currentScrollY } = useWindowScroll();
+  const lastScrollYRef = useRef(0);
+
+  // const lastScrollY = useRef(0);
 
   // Toggle audio and visual indicator
   const toggleAudioIndicator = () => {
-    setIsAudioPlaying((prev) => !prev);
+    setIsAudioPlaying((prev) => !prev); //Toggle value on or off
     setIsIndicatorActive((prev) => !prev);
   };
 
@@ -42,17 +47,18 @@ const NavBar = () => {
         // Topmost position: show navbar without floating-nav
         setIsNavVisible(true);
         navContainerRef.current.classList.remove("floating-nav");
-      } else if (currentScrollY > lastScrollY.current) {
+      } else if (currentScrollY > lastScrollYRef.current) {
         // Scrolling down: hide navbar and apply floating-nav
         setIsNavVisible(false);
         navContainerRef.current.classList.add("floating-nav");
-      } else if (currentScrollY < lastScrollY.current) {
+      } else if (currentScrollY < lastScrollYRef.current) {
         // Scrolling up: show navbar with floating-nav
         setIsNavVisible(true);
         navContainerRef.current.classList.add("floating-nav");
       }
 
-      lastScrollY.current = currentScrollY;
+      setLastScrollY(currentScrollY);
+      lastScrollYRef.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -113,6 +119,7 @@ const NavBar = () => {
                 src="/audio/loop.mp3"
                 loop
               />
+              {/* Music Bars */}
               {[1, 2, 3, 4].map((bar) => (
                 <div
                   key={bar}
