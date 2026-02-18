@@ -5,7 +5,7 @@ import Features from "./components/Features";
 import Story from "./components/Story";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import Links from "./components/Links";
+
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -35,7 +35,7 @@ function App() {
       <Features />
       <Story />
       <Contact />
-      <Links />
+
       <Footer />
     </main>
   );

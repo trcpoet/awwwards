@@ -13,7 +13,7 @@ const NavBar = () => {
   // State for toggling audio and visual indicator
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
+
   const [isNavVisible, setIsNavVisible] = useState(true);
 
   // Refs for audio and navigation container
@@ -57,7 +57,6 @@ const NavBar = () => {
         navContainerRef.current.classList.add("floating-nav");
       }
 
-      setLastScrollY(currentScrollY);
       lastScrollYRef.current = currentScrollY;
     };
 
