@@ -27,7 +27,7 @@ const Button = ({ id, title, rightIcon, leftIcon, containerClass }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={clsx(
-        "group relative z-10 w-fit cursor-pointer overflow-hidden rounded-full px-7 py-3 text-black",
+        "group relative z-10 w-fit cursor-pointer overflow-hidden rounded-full px-7 py-3 text-black flex items-center justify-between align-middle ",
         containerClass,
       )}
     >

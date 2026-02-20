@@ -7,32 +7,7 @@ import AnimatedTitle from "./AnimatedTitle";
 const FloatingImage = () => {
   const frameRef = useRef(null);
 
-  const handleMouseMove = (e) => {
-    const { clientX, clientY } = e;
-    const element = frameRef.current;
-
-    if (!element) return;
-
-    const rect = element.getBoundingClientRect();
-    const xPos = clientX - rect.left;
-    const yPos = clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((yPos - centerY) / centerY) * -10;
-    const rotateY = ((xPos - centerX) / centerX) * 10;
-
-    gsap.to(element, {
-      duration: 0.3,
-      rotateX,
-      rotateY,
-      transformPerspective: 500,
-      ease: "power1.inOut",
-    });
-  };
-
-  const handleMouseLeave = () => {
+    const handleMouseLeave = () => {
     const element = frameRef.current;
 
     if (element) {
@@ -45,6 +20,37 @@ const FloatingImage = () => {
     }
   };
 
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const element = frameRef.current;
+
+    if (!element) return;
+
+    const rect = element.getBoundingClientRect();
+    //Calculates the size and position of the image element relative to the viewport.
+    //gives us rect.left, rect.top, rect.width, and rect.height, which we need to calculate the mouse's position relative to the image.
+    const xPos = clientX - rect.left; // Mouse's X horizontal position inside the image; 
+    //Subtracting rect.left (the image's distance from the left edge) gives us the X coordinate starting from the image's left border (0).
+    const yPos = clientY - rect.top; // Mouse's Y vertical position inside the image; 
+    //Subtracting rect.top (the image's distance from the top edge) gives us the Y coordinate starting from the image's top border (0).
+
+    const centerX = rect.width / 2; //Finds the horizontal center point of the image. We want the image to tilt around its center.
+    const centerY = rect.height / 2; //Finds the vertical center point of the image. We want the image to tilt around its center.
+
+    const rotateX = ((yPos - centerY) / centerY) * -10; //Calculates the rotation angle around the X-axis.
+    const rotateY = ((xPos - centerX) / centerX) * 10; //Calculates the rotation angle around the Y-axis.
+
+    gsap.to(element, {
+      duration: 0.3,
+      rotateX,
+      rotateY,
+      transformPerspective: 500,
+      ease: "power1.inOut",
+    });
+  };
+
+
+
   return (
     <div id="story" className="min-h-dvh w-screen bg-black text-blue-50">
       <div className="flex size-full flex-col items-center py-10 pb-24">
@@ -55,6 +61,7 @@ const FloatingImage = () => {
         <div className="relative size-full">
           <AnimatedTitle
             title="the st<b>o</b>ry of <br /> a hidden real<b>m</b>"
+            sectionId="#story"
             containerClass="mt-5 pointer-events-none mix-blend-difference relative z-10"
           />
 
@@ -68,7 +75,7 @@ const FloatingImage = () => {
                   onMouseUp={handleMouseLeave}
                   onMouseEnter={handleMouseLeave}
                   src="/img/entrance.webp"
-                  alt="entrance.webp"
+                  alt="entrance"
                   className="object-contain"
                 />
               </div>
