@@ -1,16 +1,127 @@
-# React + Vite
+# Awwwards - Creative Design Showcase
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, visually stunning design showcase platform built with React and cutting-edge animation libraries. This project demonstrates advanced frontend techniques including smooth scroll animations, interactive UI elements, and premium visual design.
 
-Currently, two official plugins are available:
+## 🎨 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Animated Hero Section** - Eye-catching landing with smooth GSAP animations
+- **Interactive Navigation** - Responsive navbar with dynamic effects
+- **Smooth Scroll Experience** - Lenis scroll integration for buttery-smooth scrolling
+- **Feature Showcase** - Modern layout highlighting key design elements
+- **Story & Timeline** - Engaging narrative sections with scroll-triggered animations
+- **Contact Section** - Integrated contact form for user engagement
+- **Fully Responsive** - Mobile-optimized design that works across all devices
+- **Modern UI/UX** - Award-inspired design patterns and visual trends
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** - Modern UI library with latest features
+- **Vite** - Lightning-fast build tool and dev server
+- **GSAP** - Professional animation library for smooth interactions
+- **Lenis** - High-performance scroll hijacking for silk-smooth scrolling
+- **Tailwind CSS** - Utility-first CSS for rapid styling
+- **React Icons** - Comprehensive icon library
+- **React Use** - React hooks utilities library
 
-## Expanding the ESLint configuration
+## 📦 Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd awwwards
+```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Start the development server
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`
+
+## 🚀 Available Scripts
+
+- `npm run dev` - Start development server with hot module replacement
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint to check code quality
+
+## 📂 Project Structure
+
+```
+src/
+├── components/
+│   ├── Navbar.jsx          - Navigation component
+│   ├── Hero.jsx            - Hero/landing section
+│   ├── About.jsx           - About section
+│   ├── Features.jsx        - Features showcase
+│   ├── Story.jsx           - Story/timeline section
+│   ├── Contact.jsx         - Contact form section
+│   ├── Footer.jsx          - Footer component
+│   ├── AnimatedTitle.jsx   - Reusable animated title component
+│   ├── Button.jsx          - Reusable button component
+│   ├── RoundedCorners.jsx  - Utility component
+│   └── VideoPreview.jsx    - Video showcase component
+├── App.jsx                 - Main application component
+├── main.jsx               - Entry point
+└── index.css              - Global styles
+```
+
+## ✨ Key Implementation Details
+
+### Smooth Scrolling with Lenis
+The project integrates Lenis for premium scroll hijacking that provides a smooth, momentum-based scrolling experience.
+
+### GSAP Animations
+- ScrollTrigger plugin for scroll-based animations
+- Smooth transitions between sections
+- Interactive hover effects and timeline animations
+
+### Responsive Design
+Built with Tailwind CSS ensuring the design adapts beautifully to all screen sizes and devices.
+
+## 🎯 Performance
+
+- Optimized Vite build configuration
+- Lazy loading components
+- Efficient GSAP animations with proper cleanup
+- Responsive images and optimized assets
+
+## 📱 Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## 🚢 Deployment
+
+The project is ready for deployment to platforms like Vercel, Netlify, or GitHub Pages.
+
+```bash
+npm run build
+```
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to submit pull requests or open issues for bugs and feature requests.
+
+---
+
+**Live Demo:** [Awwwards](https://awwwards-lyart-alpha.vercel.app/)
+
+**GitHub:** [Repository](https://github.com/trcpoet/awwwards)
